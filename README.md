@@ -21,10 +21,10 @@ A list of technologies used within the project:
 ***
 A little intro about the installation.
 ```
-$ git clone https://example.com
+$ git clone https://github.com/zmonsanu/JavaTimer.git
 $ cd ../path/to/the/file
 $ javac ZackTimer.java
-$ java ZackTimer 10 "ficheroURL.txt"
+$ java ZackTimer 10 "fileURL.txt"
 ```
 
 
@@ -35,4 +35,4 @@ No collaboration
 
 ## FAQs
 ***
-A list of frequently asked questions
+No FAQs
