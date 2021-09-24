@@ -12,6 +12,9 @@ import java.io.File;// Import the File class
 import java.io.FileNotFoundException;// Import this class to handle errors
 import java.util.Scanner;//Import the Scanner class to read text files
 
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
 public class ZackTimer {
 
     private final Timer timer = new Timer();
@@ -30,6 +33,7 @@ public class ZackTimer {
             URI oURL = new URI(url);
             desktop.browse(oURL);
         } catch (URISyntaxException | IOException e) {
+            logConsola(" Error al abrir la url " + url);
             e.printStackTrace();
         }
     }
@@ -44,12 +48,14 @@ public class ZackTimer {
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Error al leer ");
+            logConsola(" Error al leer ");
             e.printStackTrace();
         }
     }
 
-
+    public void logConsola(String mensaje) {
+        System.out.println(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now()) + mensaje);
+    }
 
     public void start() {
         timer.schedule(new TimerTask() {
@@ -59,11 +65,12 @@ public class ZackTimer {
             }
 
             private void toDoAction() {
-                System.out.println("Han transcurrido " + minutes + " minutos");
-                System.out.println("Abriendo fichero...");
+                logConsola(" Han transcurrido " + minutes + " minutos");
+                logConsola(" Abriendo fichero...");
                 readFile(fichero);
-                System.out.println("Abriendo navegador...");
+                logConsola(" Abriendo navegador...");
                 for(String url : listaURL) {
+                    logConsola(" Abriendo - " + url);
                     openBrowser(url);
                 }
 
@@ -82,8 +89,9 @@ public class ZackTimer {
           }
         };
         ficheroParam = args[1];
-        System.out.println("Temporizador activado a " + minutosParam + " minutos ...");
-        System.out.println("Fichero :" + ficheroParam);
+
+        System.out.println(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now()) + " Temporizador activado a " + minutosParam + " minutos ...");
+        System.out.println(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now()) + " Fichero :" + ficheroParam);
 
         ZackTimer zTimer = new ZackTimer(minutosParam, ficheroParam);
         zTimer.start();
